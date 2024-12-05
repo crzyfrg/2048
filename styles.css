@@ -78,38 +78,42 @@ body {
     gap: 10px;
 }
 
-.new-game-btn {
-    background: #8f7a66;
+.quit-btn, .new-game-btn {
     color: white;
     border: none;
     padding: 15px 30px;
     font-size: 18px;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+.quit-btn {
+    background: #e74c3c;
+    display: none; /* Hidden by default */
+}
+
+.quit-btn:hover {
+    background: #c0392b;
+}
+
+.new-game-btn {
+    background: #8f7a66;
 }
 
 .new-game-btn:hover {
     background: #7f6a56;
 }
 
-.quit-btn {
-    background: #e74c3c;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: bold;
-    text-transform: uppercase;
+.button-hidden {
+    display: none;
 }
 
-.quit-btn:hover {
-    background: #c0392b;
+.button-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .game-container {

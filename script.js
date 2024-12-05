@@ -18,7 +18,10 @@ class Game2048 {
         this.finalScoreDisplay = document.getElementById('finalScore');
         this.finalTimeDisplay = document.getElementById('finalTime');
         this.restartButton = document.getElementById('restartButton');
-        this.newGameButton = document.getElementById('newGameButton');
+        this.quitButton = document.getElementById('quitButton');
+        this.newGamePrompt = document.getElementById('newGamePrompt');
+        this.confirmNewGame = document.getElementById('confirmNewGame');
+        this.cancelNewGame = document.getElementById('cancelNewGame');
         
         this.init();
         this.setupEventListeners();
@@ -38,8 +41,9 @@ class Game2048 {
         this.updateScore();
         this.resetTimer();
         
-        // Hide modal if visible
+        // Hide modals
         this.modal.style.display = 'none';
+        this.newGamePrompt.style.display = 'none';
 
         // Create grid cells
         for (let i = 0; i < this.gridSize * this.gridSize; i++) {
@@ -51,6 +55,9 @@ class Game2048 {
         // Add initial tiles
         this.addRandomTile();
         this.addRandomTile();
+
+        // Enable keyboard controls
+        document.addEventListener('keydown', this.handleInput.bind(this));
     }
 
     setupEventListeners() {
@@ -60,7 +67,26 @@ class Game2048 {
         // Add event listeners
         document.addEventListener('keydown', this.handleInput.bind(this));
         this.restartButton.addEventListener('click', () => this.init());
-        this.newGameButton.addEventListener('click', () => this.init());
+        
+        // Quit button handler
+        this.quitButton.addEventListener('click', () => {
+            if (this.gameStarted && !this.gameOver) {
+                this.newGamePrompt.style.display = 'flex';
+            } else {
+                this.init();
+            }
+        });
+
+        // Confirm new game
+        this.confirmNewGame.addEventListener('click', () => {
+            this.newGamePrompt.style.display = 'none';
+            this.init();
+        });
+
+        // Cancel new game
+        this.cancelNewGame.addEventListener('click', () => {
+            this.newGamePrompt.style.display = 'none';
+        });
     }
 
     startTimer() {
