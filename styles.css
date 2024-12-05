@@ -1,9 +1,13 @@
+/* This file defines the visual appearance of the 2048 game, including the layout, colors, and animations for the game elements. */
+
+/* Global styles */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Body styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #faf8ef;
@@ -14,11 +18,13 @@ body {
     padding: 20px;
 }
 
+/* Container styles */
 .container {
     max-width: 600px;
     width: 100%;
 }
 
+/* Header styles */
 .header {
     display: flex;
     justify-content: space-between;
@@ -44,6 +50,7 @@ body {
     font-weight: bold;
 }
 
+/* Score section styles */
 .score-section {
     text-align: right;
     display: flex;
@@ -70,6 +77,7 @@ body {
     font-weight: bold;
 }
 
+/* Game controls styles */
 .game-controls {
     text-align: center;
     margin-bottom: 20px;
@@ -116,6 +124,7 @@ body {
     cursor: not-allowed;
 }
 
+/* Game container styles */
 .game-container {
     background: #bbada0;
     padding: 15px;
@@ -125,6 +134,7 @@ body {
     margin: 0 auto 30px;
 }
 
+/* Grid container styles */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -133,12 +143,14 @@ body {
     height: 100%;
 }
 
+/* Grid cell styles */
 .grid-cell {
     background: rgba(238, 228, 218, 0.35);
     border-radius: 4px;
     position: relative;
 }
 
+/* Tile styles */
 .tile {
     position: absolute;
     width: 100%;
@@ -165,6 +177,7 @@ body {
 .tile-1024 { background: #edc53f; color: #f9f6f2; font-size: 22px; }
 .tile-2048 { background: #edc22e; color: #f9f6f2; font-size: 22px; }
 
+/* Instructions container styles */
 .instructions-container {
     margin-top: 40px;
     color: #776e65;
@@ -231,7 +244,7 @@ body {
     box-shadow: 0 4px 0 rgba(0,0,0,0.1);
 }
 
-/* Modal Styles */
+/* Modal styles */
 .modal {
     display: none;
     position: fixed;
@@ -332,6 +345,7 @@ body {
     background: #7f8c8d;
 }
 
+/* Media queries */
 @media (max-width: 600px) {
     .header {
         flex-direction: column;
