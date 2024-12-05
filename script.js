@@ -1,4 +1,10 @@
+/**
+ * This file contains the main game logic for the 2048 game, including initializing the game, handling user input, updating the game state, and rendering the game grid.
+ */
 class Game2048 {
+    /**
+     * Constructor: Initializes the game state and sets up event listeners.
+     */
     constructor() {
         this.gridSize = 4;
         this.grid = Array(this.gridSize).fill().map(() => Array(this.gridSize).fill(0));
@@ -27,6 +33,9 @@ class Game2048 {
         this.setupEventListeners();
     }
 
+    /**
+     * Initializes the game by setting up the grid, resetting the score and timer, and adding initial tiles.
+     */
     init() {
         // Clear the grid
         this.gameContainer.innerHTML = '';
@@ -60,6 +69,9 @@ class Game2048 {
         document.addEventListener('keydown', this.handleInput.bind(this));
     }
 
+    /**
+     * Sets up event listeners for the game controls.
+     */
     setupEventListeners() {
         // Remove any existing event listeners
         document.removeEventListener('keydown', this.handleInput.bind(this));
@@ -89,6 +101,9 @@ class Game2048 {
         });
     }
 
+    /**
+     * Starts the game timer.
+     */
     startTimer() {
         if (!this.gameStarted) {
             this.gameStarted = true;
@@ -105,6 +120,9 @@ class Game2048 {
         }
     }
 
+    /**
+     * Resets the game timer.
+     */
     resetTimer() {
         if (this.timerInterval) {
             clearInterval(this.timerInterval);
@@ -115,6 +133,10 @@ class Game2048 {
         this.gameStarted = false;
     }
 
+    /**
+     * Displays the game over modal with the final score and time.
+     * @param {boolean} won - Indicates whether the player won the game.
+     */
     showGameOverModal(won = false) {
         this.modalTitle.textContent = won ? 'Congratulations!' : 'Game Over!';
         this.modalMessage.textContent = won ? 
@@ -129,6 +151,10 @@ class Game2048 {
         }
     }
 
+    /**
+     * Handles user input for moving tiles.
+     * @param {KeyboardEvent} event - The keyboard event.
+     */
     handleInput(event) {
         if (this.gameOver) return;
 
@@ -171,6 +197,12 @@ class Game2048 {
         }
     }
 
+    /**
+     * Moves the tiles in the specified direction.
+     * @param {Function} moveFunction - The function to move the tiles.
+     * @param {boolean} isVertical - Indicates whether the move is vertical.
+     * @returns {boolean} - Indicates whether any tiles were moved.
+     */
     move(moveFunction, isVertical = false) {
         let moved = false;
         const oldGrid = JSON.parse(JSON.stringify(this.grid));
@@ -201,6 +233,10 @@ class Game2048 {
         return moved;
     }
 
+    /**
+     * Moves the tiles to the left.
+     * @returns {boolean} - Indicates whether any tiles were moved.
+     */
     moveLeft() {
         return this.move(row => {
             const newRow = row.filter(cell => cell !== 0);
@@ -216,6 +252,10 @@ class Game2048 {
         });
     }
 
+    /**
+     * Moves the tiles to the right.
+     * @returns {boolean} - Indicates whether any tiles were moved.
+     */
     moveRight() {
         return this.move(row => {
             const newRow = row.filter(cell => cell !== 0);
@@ -232,6 +272,10 @@ class Game2048 {
         });
     }
 
+    /**
+     * Moves the tiles up.
+     * @returns {boolean} - Indicates whether any tiles were moved.
+     */
     moveUp() {
         return this.move(col => {
             const newCol = col.filter(cell => cell !== 0);
@@ -247,6 +291,10 @@ class Game2048 {
         }, true);
     }
 
+    /**
+     * Moves the tiles down.
+     * @returns {boolean} - Indicates whether any tiles were moved.
+     */
     moveDown() {
         return this.move(col => {
             const newCol = col.filter(cell => cell !== 0);
@@ -263,6 +311,9 @@ class Game2048 {
         }, true);
     }
 
+    /**
+     * Adds a random tile (2 or 4) to an empty cell in the grid.
+     */
     addRandomTile() {
         const emptyCells = [];
         for (let i = 0; i < this.gridSize; i++) {
@@ -280,6 +331,12 @@ class Game2048 {
         }
     }
 
+    /**
+     * Renders a tile at the specified position in the grid.
+     * @param {number} x - The x-coordinate of the tile.
+     * @param {number} y - The y-coordinate of the tile.
+     * @param {number} value - The value of the tile.
+     */
     renderTile(x, y, value) {
         const cell = this.gameContainer.children[x * this.gridSize + y];
         const existingTile = cell.querySelector('.tile');
@@ -299,6 +356,9 @@ class Game2048 {
         }
     }
 
+    /**
+     * Renders the entire grid.
+     */
     renderGrid() {
         for (let i = 0; i < this.gridSize; i++) {
             for (let j = 0; j < this.gridSize; j++) {
@@ -307,10 +367,17 @@ class Game2048 {
         }
     }
 
+    /**
+     * Updates the score display.
+     */
     updateScore() {
         this.scoreDisplay.textContent = this.score;
     }
 
+    /**
+     * Checks if the player has won the game by reaching 2048.
+     * @returns {boolean} - Indicates whether the player has won.
+     */
     hasWon() {
         for (let i = 0; i < this.gridSize; i++) {
             for (let j = 0; j < this.gridSize; j++) {
@@ -320,6 +387,10 @@ class Game2048 {
         return false;
     }
 
+    /**
+     * Checks if the game is over (no more moves available).
+     * @returns {boolean} - Indicates whether the game is over.
+     */
     isGameOver() {
         // Check for empty cells
         for (let i = 0; i < this.gridSize; i++) {
